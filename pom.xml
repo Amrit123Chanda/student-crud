@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+	<!-- The parent tag manages “what versions & tools to use”-->
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.0.1</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.example.student</groupId>
+	<artifactId>student-crud</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>student-crud</name>
+	<description>Demo project for Spring Boot</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+	<!-- 
+	Direct <dependency> version → highest priority
+	Current POM <dependencyManagement> → next priority
+	Parent POM <dependencyManagement> → fallback
+	If nothing defines a version → Maven fails
+	-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+
+<!-- 
+	A parent POM is just a common configuration file (no code) that defines shared things like Java version, dependency versions,
+	and build tools, while child POMs are real projects that use this configuration. Many child projects can point to the same parent,
+	so when you change a library version or build setting in the parent, all children automatically use it.
+	The only thing each child must explicitly say is which version of the parent it uses—this keeps builds stable and predictable.
+
+	The top most parent POM will not have any parent tag-<parent> and code like normal projects.
+	Parent POM can a dependecies tag to contain the dependecies for its child, but it is not recommended.
+	this dependency is automatically inherited by all children
+	Every child will now have this dependency, even if it doesn’t want it 
+	But it is not recommended.
+	
+	The parent POM contains <dependencyManagement> to control versions.
+	When a dependency is added in a child POM, its version is automatically taken from the parent.
+	
+	Flow-If the dependency explicitly specifies a version, Maven uses that version.
+	If no version is specified, Maven looks in the child POM’s <dependencyManagement>.
+	If still not found, Maven looks in the parent POM’s <dependencyManagement> (and up the parent chain).
+	If no version is found anywhere, the build fails.
+-->
