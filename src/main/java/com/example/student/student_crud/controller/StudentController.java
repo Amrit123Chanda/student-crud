@@ -1,10 +1,10 @@
 package com.example.student.student_crud.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.student.student_crud.dto.StudentDto;
 import com.example.student.student_crud.service.StudentService;
 
@@ -14,9 +14,10 @@ public class StudentController {
 	@Autowired
 	private StudentService studentservice;
 	
-	public StudentDto getStudentById(Long id)
+	@GetMapping("/{id}")
+	public StudentDto getStudentById(@PathVariable Long id)
 	{
-		return null;
+		return studentservice.getStudentById(id);
 	}
 	
 	public StudentDto createStudent(StudentDto stdDto)
