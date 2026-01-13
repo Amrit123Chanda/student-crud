@@ -1,8 +1,8 @@
 package com.example.student.student_crud.service;
 
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.student.student_crud.dao.StudentRepo;
 import com.example.student.student_crud.dto.StudentDto;
 import com.example.student.student_crud.entity.StudentEntity;
@@ -16,8 +16,16 @@ public class StudentService implements IstudentService{
 
 	@Override
 	public StudentDto getStudentById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		StudentEntity stdEntity=null ;
+		Optional<StudentEntity> stdEntOpt = studentrepo.findById(id);
+		if(stdEntOpt.isPresent())
+			stdEntity=stdEntOpt.get();
+//		else
+//			stdEntity=null;
+		
+		StudentDto stdDto=StudentMapper.toDto(stdEntity);
+		
+		return stdDto;
 	}
 
 	@Override
