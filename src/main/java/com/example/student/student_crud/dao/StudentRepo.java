@@ -12,7 +12,7 @@ import com.example.student.student_crud.entity.StudentEntity;
 @Repository
 public interface StudentRepo extends JpaRepository<StudentEntity, Long> {
 	
-	@Query("select s from StudentEntity s where s.age>:x ")
+	@Query("select s from StudentEntity s where s.age>=:x ")
 	List<StudentEntity> findByAge(@Param("x") int age);
 	
 }
