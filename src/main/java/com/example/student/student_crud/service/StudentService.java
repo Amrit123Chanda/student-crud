@@ -1,5 +1,7 @@
 package com.example.student.student_crud.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,20 @@ public class StudentService implements IstudentService{
 		return stdDto;
 	}
 	
+	public List<StudentDto> getStudentByAge(Integer age){
+		
+		List<StudentEntity> stdEntityList =studentrepo.findByAge(age);
+		
+		List<StudentDto> stdDtoList = new ArrayList<>();
+		
+		for(StudentEntity singleStdEntity:stdEntityList)
+		{
+			 StudentDto stdDto=StudentMapper.toDto(singleStdEntity);
+			 stdDtoList.add(stdDto);
+		}
+		
+		return stdDtoList;
+	}
 	
 	
 }

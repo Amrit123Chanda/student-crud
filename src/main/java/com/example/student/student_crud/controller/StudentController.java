@@ -30,9 +30,10 @@ public class StudentController {
 		return studentservice.createStudent(stdDto);
 	}
 	
-	public List<StudentDto> getStudentByAge(Integer age)
+	@GetMapping("/getbyage/{age}")
+	public List<StudentDto> getStudentByAge(@PathVariable Integer age)
 	{
-		return null;
+		return studentservice.getStudentByAge(age);
 	}
 	
 	public List<StudentDto> searchStudentbyName(String name)
