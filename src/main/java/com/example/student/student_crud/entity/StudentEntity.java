@@ -1,17 +1,22 @@
 package com.example.student.student_crud.entity;
 
+import org.hibernate.annotations.Columns;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
 public class StudentEntity {
 
 	@Id
+	//@GeneratedValue(strategy = GenerationType.AUTO)
 	Long id;
 	String name;
 	String address;
 	Integer age;
-	
 	
 	public Long getId() {
 		return id;
