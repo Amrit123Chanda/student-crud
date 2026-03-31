@@ -22,6 +22,7 @@ public class StudentMapper {
 		stdDto.setName(stdEnt.getName());
 		stdDto.setAge(stdEnt.getAge());
 		
+		if(stdEnt.getListAdd()!=null) {
 		List<AddressEntity> listAddEnt=stdEnt.getListAdd();
 		List<AddressDto> listAddDto=new ArrayList<>();
 		for(AddressEntity addEnt:listAddEnt)
@@ -30,7 +31,10 @@ public class StudentMapper {
 			listAddDto.add(addDto);
 		}
 		stdDto.setAddresses(listAddDto);
+		}
 		
+		if(stdEnt.getStudentCourseSet()!=null)
+		{
 		Set<CourseEntity> setCourseEnt=stdEnt.getStudentCourseSet();
 		Set<CourseDto> setCourseDto=new HashSet<>();
 		for(CourseEntity courseEntity:setCourseEnt)
@@ -39,6 +43,7 @@ public class StudentMapper {
 			setCourseDto.add(courseDto);
 		}
 		stdDto.setCourses(setCourseDto);
+		}
 		
 		return stdDto;
 	}
@@ -50,6 +55,8 @@ public class StudentMapper {
 		stdEnt.setId(stdDto.getId());
 		stdEnt.setName(stdDto.getName());
 		stdEnt.setAge(stdDto.getAge());
+		
+		if(stdDto.getAddresses()!=null) {
 		List<AddressDto> listAddDto=stdDto.getAddresses();
 		List<AddressEntity> listAddEntity=new ArrayList<>();
 		for(AddressDto addDto:listAddDto)
@@ -58,7 +65,9 @@ public class StudentMapper {
 			listAddEntity.add(addEnt);
 		}
 		stdEnt.setListAdd(listAddEntity);
+		}
 		
+		if(stdDto.getCourses()!=null) {
 		Set<CourseDto> setCourseDto=stdDto.getCourses();
 		Set<CourseEntity> setCourseEntity = new HashSet<>();
 		for(CourseDto courseDto:setCourseDto)
@@ -67,7 +76,7 @@ public class StudentMapper {
 			setCourseEntity.add(courseEntity);
 		}
 		stdEnt.setStudentCourseSet(setCourseEntity);
-		
+		}
 		return stdEnt;
 		
 	}

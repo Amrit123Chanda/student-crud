@@ -3,12 +3,16 @@ package com.example.student.student_crud.dto;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.Column;
+
 public class StudentDto {
 	
 	Long id;
 	String name;
 	Integer age;
+	@Column(nullable=true)
 	private List<AddressDto> addresses;
+	@Column(nullable=true)
     private Set<CourseDto> courses;
     
     
