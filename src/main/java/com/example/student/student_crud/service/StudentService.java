@@ -14,7 +14,7 @@ import com.example.student.student_crud.mapper.StudentMapper;
 public class StudentService implements IstudentService{
 
 	@Autowired
-	StudentRepo studentrepo;
+	StudentRepo studentrepo;// int x ;
 
 	@Override
 	public StudentDto getStudentById(Long id) {
@@ -25,7 +25,7 @@ public class StudentService implements IstudentService{
 //		else
 //			stdEntity=null;
 		
-		StudentDto stdDto=StudentMapper.toDto(stdEntity);
+		StudentDto stdDto=StudentMapper.toStdDto(stdEntity);
 		
 		return stdDto;
 	}
@@ -33,10 +33,10 @@ public class StudentService implements IstudentService{
 	@Override
 	public StudentDto createStudent(StudentDto stdDto) {
 		// TODO Auto-generated method stub
-		StudentEntity stdEntity= StudentMapper.toEntity(stdDto);
+		StudentEntity stdEntity= StudentMapper.toStdEntity(stdDto);
 		StudentEntity savedEntity=studentrepo.save(stdEntity);
-		StudentDto resultStudentDto=StudentMapper.toDto(savedEntity);
-		return stdDto;
+		StudentDto resultStudentDto=StudentMapper.toStdDto(savedEntity);
+		return resultStudentDto;
 	}
 	
 	public List<StudentDto> getStudentByAge(Integer age){
@@ -47,7 +47,7 @@ public class StudentService implements IstudentService{
 		
 		for(StudentEntity singleStdEntity:stdEntityList)
 		{
-			 StudentDto stdDto=StudentMapper.toDto(singleStdEntity);
+			 StudentDto stdDto=StudentMapper.toStdDto(singleStdEntity);
 			 stdDtoList.add(stdDto);
 		}
 		
