@@ -12,7 +12,7 @@ import com.example.student.student_crud.entity.AddressEntity;
 import com.example.student.student_crud.entity.CourseEntity;
 import com.example.student.student_crud.entity.StudentEntity;
 
-public class StudentMapper {
+public class Mapper {
 
 	public static StudentDto toStdDto(StudentEntity stdEnt)
 	{

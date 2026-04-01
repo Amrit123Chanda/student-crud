@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.student.student_crud.dao.StudentRepo;
 import com.example.student.student_crud.dto.StudentDto;
 import com.example.student.student_crud.entity.StudentEntity;
-import com.example.student.student_crud.mapper.StudentMapper;
+import com.example.student.student_crud.mapper.Mapper;
 
 @Service
 public class StudentService implements IstudentService{
@@ -25,7 +25,7 @@ public class StudentService implements IstudentService{
 //		else
 //			stdEntity=null;
 		
-		StudentDto stdDto=StudentMapper.toStdDto(stdEntity);
+		StudentDto stdDto= Mapper.toStdDto(stdEntity);
 		
 		return stdDto;
 	}
@@ -33,9 +33,9 @@ public class StudentService implements IstudentService{
 	@Override
 	public StudentDto createStudent(StudentDto stdDto) {
 		// TODO Auto-generated method stub
-		StudentEntity stdEntity= StudentMapper.toStdEntity(stdDto);
+		StudentEntity stdEntity= Mapper.toStdEntity(stdDto);
 		StudentEntity savedEntity=studentrepo.save(stdEntity);
-		StudentDto resultStudentDto=StudentMapper.toStdDto(savedEntity);
+		StudentDto resultStudentDto= Mapper.toStdDto(savedEntity);
 		return resultStudentDto;
 	}
 	
@@ -47,7 +47,7 @@ public class StudentService implements IstudentService{
 		
 		for(StudentEntity singleStdEntity:stdEntityList)
 		{
-			 StudentDto stdDto=StudentMapper.toStdDto(singleStdEntity);
+			 StudentDto stdDto= Mapper.toStdDto(singleStdEntity);
 			 stdDtoList.add(stdDto);
 		}
 		
