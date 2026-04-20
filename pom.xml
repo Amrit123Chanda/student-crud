@@ -31,7 +31,7 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-	<!-- 
+	<!--
 	Direct <dependency> version → highest priority
 	Current POM <dependencyManagement> → next priority
 	Parent POM <dependencyManagement> → fallback
@@ -75,7 +75,7 @@
 
 </project>
 
-<!-- 
+<!--
 	A parent POM is just a common configuration file (no code) that defines shared things like Java version, dependency versions,
 	and build tools, while child POMs are real projects that use this configuration. Many child projects can point to the same parent,
 	so when you change a library version or build setting in the parent, all children automatically use it.
@@ -84,12 +84,12 @@
 	The top most parent POM will not have any parent tag-<parent> and code like normal projects.
 	Parent POM can a dependecies tag to contain the dependecies for its child, but it is not recommended.
 	this dependency is automatically inherited by all children
-	Every child will now have this dependency, even if it doesn’t want it 
+	Every child will now have this dependency, even if it doesn’t want it
 	But it is not recommended.
-	
+
 	The parent POM contains <dependencyManagement> to control versions.
 	When a dependency is added in a child POM, its version is automatically taken from the parent.
-	
+
 	Flow-If the dependency explicitly specifies a version, Maven uses that version.
 	If no version is specified, Maven looks in the child POM’s <dependencyManagement>.
 	If still not found, Maven looks in the parent POM’s <dependencyManagement> (and up the parent chain).

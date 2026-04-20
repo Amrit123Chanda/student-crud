@@ -1,0 +1,94 @@
+STUDENT-CRUD SYSTEM DOCUMENTATION
+=================================
+
+PROJECT OVERVIEW
+----------------
+This is a Spring Boot based REST API for managing students, courses, instructors, and enrollments.
+It uses a modular architecture where each entity has its own controller, service, repository, and DTO.
+
+VALIDATION & ERROR HANDLING
+---------------------------
+- ResourceNotFoundException: Thrown whenever a requested ID (student, course, instructor, or enrollment) does not exist in the database.
+- Integrity Checks:
+    * Courses cannot be created or assigned to a non-existent instructor.
+    * Enrollments require both a valid Student ID and a valid Course ID.
+    * Updates to Student, Course, or Instructor only modify fields provided in the request (null fields are ignored to preserve existing data).
+
+MODULES AND ENDPOINTS
+---------------------
+
+1. STUDENT MODULE
+   Manages student personal details and addresses.
+
+   - POST /student/create
+     * Behavior: Creates a new student with optional address list.
+
+   - GET /student/getbyid/{id}
+     * Behavior: Retrieves student details.
+     * Error Case: Throws ResourceNotFoundException if student ID is invalid.
+
+   - GET /student/searchbyname/{name}
+     * Behavior: Returns a list of students whose names match the search string.
+
+   - PATCH /student/{id}
+     * Behavior: Partially updates student information.
+     * Error Case: Throws ResourceNotFoundException if student ID is not found.
+
+2. INSTRUCTOR MODULE
+   Manages instructor details.
+
+   - POST /instructor/create
+     * Behavior: Creates a new instructor record.
+
+   - GET /instructor/{id}
+     * Behavior: Retrieves instructor details.
+     * Error Case: Throws ResourceNotFoundException if instructor ID is not found.
+
+   - PATCH /instructor/{id}
+     * Behavior: Updates an existing instructor's details.
+     * Error Case: Throws ResourceNotFoundException if instructor ID is invalid.
+
+3. COURSE MODULE
+   Manages academic courses and their association with instructors.
+
+   - POST /course/save
+     * Behavior: Saves a course.
+     * Dependency Check: If 'instructorId' is provided, the system validates that the instructor exists; otherwise, it throws ResourceNotFoundException.
+
+   - GET /course/getbyid/{id}
+     * Behavior: Retrieves course details.
+     * Error Case: Throws ResourceNotFoundException if course ID is invalid.
+
+   - GET /course/getbyinstructor/{instructorId}
+     * Behavior: Retrieves the course associated with a specific instructor.
+     * Dependency Check: Validates instructor existence first. Throws ResourceNotFoundException if instructor or associated course is missing.
+
+   - PATCH /course/update/{id}/course
+     * Behavior: Updates course details.
+     * Dependency Check: If a new 'instructorId' is provided, it validates the instructor exists before updating. Throws ResourceNotFoundException if either the course ID or the new instructor ID is invalid.
+
+4. ENROLLMENT MODULE
+   Handles the Many-to-Many relationship between students and courses.
+
+   - POST /enrollment/enroll
+     * Behavior: Enrolls a student in a course.
+     * Dependency Check: Validates both 'studentId' and 'courseId'. Throws ResourceNotFoundException if either is missing or invalid.
+
+   - DELETE /enrollment/unenroll
+     * Behavior: Removes a student from a course.
+     * Error Case: Throws ResourceNotFoundException if no such enrollment record exists for the given IDs.
+
+   - GET /enrollment/student/{studentId}/courses
+     * Behavior: Lists course IDs for a student.
+     * Dependency Check: Validates student existence first.
+
+   - GET /enrollment/course/{courseId}/students
+     * Behavior: Lists student IDs for a course.
+     * Dependency Check: Validates course existence first.
+
+TECHNICAL DETAILS
+-----------------
+- Framework: Spring Boot
+- Database: JPA/Hibernate
+- Architecture: Controller-Service-Repository pattern with Service-to-Service validation (Lookup interfaces).
+- Data Mapping: Manual Mapper class used for Entity-DTO conversion.
