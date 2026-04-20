@@ -35,7 +35,16 @@ public class UserService implements IUserService {
 
     @Override
     public UserDto registerUser(UserDto userDto) {
-        Role role = roleRepo.findByRoleName(userDto.getRoleName().toUpperCase())
+
+        if (userDto.getRoleName() == null) {
+            throw new IllegalArgumentException("Role name must not be null");
+        }
+       String roleName = userDto.getRoleName().toUpperCase();
+       if(!roleName.startsWith("ROLE_")) {
+           roleName = "ROLE_" + roleName;
+           userDto.setRoleName(roleName);
+       }
+        Role role = roleRepo.findByRoleName(roleName)
                 .orElseThrow(() -> new ResourceNotFoundException("Role not found. Registration failed."));
 
         if (userRepo.findByUsername(userDto.getUsername()).isPresent()) {

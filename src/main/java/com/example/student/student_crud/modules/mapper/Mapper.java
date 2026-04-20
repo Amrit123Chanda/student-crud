@@ -95,7 +95,11 @@ public class Mapper {
 
 	public static Role toRoleEntity(RoleDto roleDto) {
 		Role role = new Role();
-		role.setRoleName(roleDto.getRoleName().toUpperCase());
+		String roleName= role.getRoleName().toUpperCase();
+		if(roleName.startsWith("ROLE_"))
+			role.setRoleName(roleName);
+		else
+			role.setRoleName("ROLE_"+roleName);
 		return role;
 	}
 
@@ -105,6 +109,5 @@ public class Mapper {
         user.setPassword(userDto.getPassword());
 		user.setRole(role);
         return user;
-
     }
 }
